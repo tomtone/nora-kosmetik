@@ -14,3 +14,8 @@ vendor/
 # Node
 node_modules/
 package-lock.json
+
+# generated Files
+styles.css
+styles.css.br
+styles.css.gz
