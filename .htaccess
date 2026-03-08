@@ -1,0 +1,50 @@
+# ── Pre-compressed static assets ─────────────────────────────────────────────
+# Serve pre-built .br / .gz files instead of compressing on the fly.
+# Requires mod_rewrite, mod_headers, mod_mime (all on by default in Apache 2.4).
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Brotli – if browser accepts it and the .br file exists
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -f
+  RewriteRule ^(.+)\.css$ $1.css.br [L]
+
+  # 2. Gzip – fallback if browser accepts gzip and the .gz file exists
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -f
+  RewriteRule ^(.+)\.css$ $1.css.gz [L]
+</IfModule>
+
+# Tell the browser what it's actually receiving
+<FilesMatch "\.css\.(br|gz)$">
+  <IfModule mod_headers.c>
+    Header set Content-Type "text/css"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.css\.br$">
+  <IfModule mod_headers.c>
+    Header set Content-Encoding "br"
+    Header append Vary "Accept-Encoding"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.css\.gz$">
+  <IfModule mod_headers.c>
+    Header set Content-Encoding "gzip"
+    Header append Vary "Accept-Encoding"
+  </IfModule>
+</FilesMatch>
+
+# ── Caching ───────────────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2           "access plus 1 year"
+  ExpiresByType image/webp           "access plus 1 year"
+  ExpiresByType image/jpeg           "access plus 1 year"
+  ExpiresByType image/png            "access plus 1 year"
+  ExpiresByType image/svg+xml        "access plus 1 year"
+</IfModule>
