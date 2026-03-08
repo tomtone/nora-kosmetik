@@ -117,15 +117,6 @@ body::before {
 .hero-cta    { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 1.0s both; }
 .hero-logo   { animation: fadeSlideIn 1.4s cubic-bezier(.22,1,.36,1) 0.0s both; }
 
-/* ── line ornament ── */
-.ornament { position: relative; display: inline-block; }
-.ornament::before, .ornament::after {
-  content: '';
-  position: absolute; top: 50%; width: 40px; height: 1px; background: currentColor; opacity: 0.35;
-}
-.ornament::before { right: calc(100% + 12px); }
-.ornament::after  { left: calc(100% + 12px); }
-
 /* ── nav link hover ── */
 .nav-link { position: relative; }
 .nav-link::after {
@@ -144,15 +135,6 @@ body::before {
 
 /* ── modal backdrop ── */
 [x-cloak] { display: none !important; }
-
-/* ── mobile menu ── */
-.mobile-menu { transition: opacity 0.3s ease, transform 0.3s ease; }
-
-/* ── section divider ── */
-.divider {
-  width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, #B7AAA0, transparent);
-  margin: 0 auto;
-}
 
 /* ── elegant underline for headings ── */
 .heading-line {
@@ -173,7 +155,7 @@ body::before {
 
 /* ── button ── */
 .btn-primary {
-  display: inline-block; padding: 14px 36px;
+  display: inline-flex; align-items: center; gap: 4px; padding: 14px 36px;
   background: transparent; border: 1px solid #84776E; color: #84776E;
   font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
   letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
@@ -183,7 +165,7 @@ body::before {
 .btn-primary:hover { background: #84776E; color: #FEF9F5; transform: translateY(-1px); }
 
 .btn-filled {
-  display: inline-block; padding: 14px 36px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 36px;
   background: #84776E; color: #FEF9F5; border: 1px solid #84776E;
   font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
   letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
@@ -208,14 +190,7 @@ body::before {
 .accordion-body { overflow: hidden; transition: max-height 0.5s cubic-bezier(.22,1,.36,1), opacity 0.4s ease; max-height: 0; opacity: 0; }
 .accordion-body.open { max-height: 600px; opacity: 1; }
 
-/* ── logo image crop: remove black bars ── */
-.logo-crop {
-  object-fit: cover;
-  object-position: center 40%;
-}
-
 /* ── print-only helper ── */
-.print-only { display: none; }
 
 /* ═══════════════════════════════════════ PRINT: BEHANDLUNGSVEREINBARUNG ══ */
 @media print {
