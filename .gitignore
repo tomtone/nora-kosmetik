@@ -10,3 +10,7 @@
 # PHP/Composer (unused, but present)
 composer.lock
 vendor/
+
+# Node
+node_modules/
+package-lock.json
