@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de" x-data="sitePage()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz · Nora Gerstenberg</title>
+  <meta name="robots" content="noindex, follow" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory:  '#FEF9F5',
+            fog:    '#F7F1EC',
+            creme:  '#EAE1D8',
+            sand:   '#B7AAA0',
+            taupe:  '#84776E',
+            stone:  '#6F645D',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans:  ['Montserrat', 'sans-serif'],
+          },
+          letterSpacing: {
+            widest2: '0.25em',
+            widest3: '0.35em',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="relative">
+
+<!-- ═══════════════════════════════════════════ HEADER ══ -->
+<header style="border-bottom: 1px solid #EAE1D8;" class="bg-ivory py-5 px-6">
+  <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <a href="/" class="flex flex-col leading-none group">
+      <span class="font-serif text-lg text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
+      <span class="font-sans text-[9px] tracking-widest3 uppercase text-sand mt-0.5">Kosmetikerin</span>
+    </a>
+    <a href="/" class="font-sans text-xs tracking-widest uppercase text-taupe hover:text-stone transition-colors flex items-center gap-2">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Startseite
+    </a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ CONTENT ══ -->
+<main class="py-20 md:py-28 px-6" style="background: #FEF9F5; min-height: calc(100vh - 220px);">
+  <div class="max-w-2xl mx-auto">
+
+    <p class="font-sans text-xs tracking-widest uppercase text-sand mb-4">Rechtliches</p>
+    <h1 class="font-serif text-4xl md:text-5xl text-stone heading-line mb-14">Datenschutz</h1>
+
+    <!-- Einleitung -->
+    <section class="mb-12">
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Der Schutz Ihrer persönlichen Daten ist mir ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, welche personenbezogenen Daten auf dieser Website erhoben werden, wie sie verwendet werden und welche Rechte Sie in Bezug auf Ihre Daten haben. Sie gilt gemäß der Datenschutz-Grundverordnung (DSGVO) sowie dem Bundesdatenschutzgesetz (BDSG).
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 1. Verantwortlicher -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">1. Verantwortlicher</h2>
+      <p class="font-sans text-sm text-taupe leading-relaxed mb-4">
+        Nora Gerstenberg<br />
+        Krantorweg 34b<br />
+        13503 Berlin
+      </p>
+      <p class="font-sans text-sm text-taupe leading-loose">
+        Telefon: <a href="tel:+4915153636898" class="hover:text-stone transition-colors">01515 3636 898</a><br />
+        E-Mail: <a href="mailto:gerstenberg.nora@gmx.de" class="hover:text-stone transition-colors">gerstenberg.nora@gmx.de</a>
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 2. Server-Logfiles -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">2. Server-Logfiles</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
+        Beim Abruf dieser Website werden durch den Hosting-Anbieter automatisch Informationen in sogenannten Server-Logfiles erfasst, die Ihr Browser automatisch übermittelt. Dies sind:
+      </p>
+      <ul class="font-sans text-sm text-taupe/80 leading-loose mb-4 space-y-1 pl-4">
+        <li>— Browsertyp und Browserversion</li>
+        <li>— Verwendetes Betriebssystem</li>
+        <li>— Referrer-URL</li>
+        <li>— Hostname des zugreifenden Rechners</li>
+        <li>— Uhrzeit der Serveranfrage</li>
+        <li>— IP-Adresse (anonymisiert oder vollständig, je nach Hosting-Konfiguration)</li>
+      </ul>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Diese Daten werden nicht mit anderen Datenquellen zusammengeführt. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren und fehlerfreien Betrieb der Website). Die Logfiles werden nach spätestens 30 Tagen gelöscht.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 3. Keine Cookies / kein Tracking -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">3. Cookies und Tracking</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Diese Website verwendet keine Cookies und setzt kein Analyse- oder Tracking-Tool ein. Es werden keinerlei Nutzungsdaten gespeichert oder an Dritte zu Werbezwecken weitergegeben.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 4. Externe Dienste -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">4. Externe Dienste und CDN</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-6">
+        Zum Betrieb dieser Website werden externe Ressourcen eingebunden. Beim Abruf dieser Ressourcen wird Ihre IP-Adresse an den jeweiligen Anbieter übermittelt.
+      </p>
+
+      <div class="space-y-6">
+        <!-- jsDelivr -->
+        <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
+          <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">jsDelivr CDN</p>
+          <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-1">
+            Für das JavaScript-Framework Alpine.js wird jsDelivr (Prospect One, Królewska 65A, 30-081 Krakau, Polen) als Content Delivery Network genutzt.
+          </p>
+          <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+            Datenschutzinformationen: <span class="text-taupe">www.jsdelivr.com/privacy-policy-jsdelivr-net</span>
+          </p>
+        </div>
+
+        <!-- Tailwind CDN -->
+        <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
+          <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">Tailwind CSS CDN</p>
+          <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+            Das CSS-Framework Tailwind wird über den CDN-Dienst von Tailwind Labs Inc. geladen. Dabei kann eine Verbindung zu Servern von Tailwind Labs hergestellt werden, bei der Ihre IP-Adresse übermittelt wird.
+          </p>
+        </div>
+
+        <!-- WhatsApp -->
+        <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
+          <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">WhatsApp</p>
+          <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+            Diese Website enthält einen Link zu WhatsApp (Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland). Beim Anklicken des Links werden Sie zu WhatsApp weitergeleitet. Eine Datenübertragung erfolgt erst durch das aktive Anklicken. Es gelten die Datenschutzbestimmungen von Meta: <span class="text-taupe">www.whatsapp.com/legal/privacy-policy</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 5. Kontaktaufnahme -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">5. Kontaktaufnahme</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
+        Wenn Sie per E-Mail oder WhatsApp Kontakt aufnehmen, werden die dabei übermittelten personenbezogenen Daten (z. B. Name, E-Mail-Adresse, Nachrichteninhalt) gespeichert, um Ihre Anfrage zu bearbeiten und bei Anschlussfragen darauf zurückgreifen zu können.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Die Daten werden nach Abschluss der Bearbeitung gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 6. Betroffenenrechte -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">6. Ihre Rechte</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
+        Sie haben gegenüber dem Verantwortlichen folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:
+      </p>
+      <ul class="font-sans text-sm text-taupe/80 leading-loose mb-4 space-y-1 pl-4">
+        <li>— <strong class="font-medium text-taupe">Auskunft</strong> (Art. 15 DSGVO)</li>
+        <li>— <strong class="font-medium text-taupe">Berichtigung</strong> unrichtiger Daten (Art. 16 DSGVO)</li>
+        <li>— <strong class="font-medium text-taupe">Löschung</strong> (Art. 17 DSGVO)</li>
+        <li>— <strong class="font-medium text-taupe">Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+        <li>— <strong class="font-medium text-taupe">Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+        <li>— <strong class="font-medium text-taupe">Widerspruch</strong> gegen die Verarbeitung (Art. 21 DSGVO)</li>
+      </ul>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an die oben genannte E-Mail-Adresse.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 7. Beschwerderecht -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">7. Beschwerderecht bei der Aufsichtsbehörde</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
+        Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde für Berlin ist:
+      </p>
+      <p class="font-sans text-sm text-taupe leading-relaxed">
+        Die Berliner Beauftragte für Datenschutz und Informationsfreiheit<br />
+        Friedrichstr. 219<br />
+        10969 Berlin<br />
+        <a href="mailto:mailbox@datenschutz-berlin.de" class="hover:text-stone transition-colors">mailbox@datenschutz-berlin.de</a>
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- 8. Aktualität -->
+    <section class="mb-4">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">8. Aktualität dieser Erklärung</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand März 2026. Durch die Weiterentwicklung dieser Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer style="background:#6F645D;" class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
+      <div class="text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start mb-4">
+          <div class="rounded-full overflow-hidden flex-shrink-0" style="width:50px; height:50px; border:1px solid rgba(254,249,245,0.2);">
+            <img src="/logo.svg" alt="Logo" class="w-full h-full logo-crop scale-110" style="background: #EAE1D8;" />
+          </div>
+          <div>
+            <p class="font-serif text-2xl text-ivory mb-1">Nora Gerstenberg</p>
+            <p class="font-sans text-[10px] tracking-widest3 uppercase text-ivory/50">Kosmetikerin</p>
+          </div>
+        </div>
+        <p class="font-sans text-xs text-ivory/60 leading-loose">
+          Krantorweg 34b · 13503 Berlin<br />
+          01515 3636 898 · gerstenberg.nora@gmx.de
+        </p>
+      </div>
+
+      <div class="text-center md:text-right">
+        <p class="font-sans text-xs tracking-widest uppercase text-ivory/40 mb-4">Navigation</p>
+        <div class="flex flex-col gap-3">
+          <template x-for="link in navLinks">
+            <a :href="link.href" class="font-sans text-xs text-ivory/60 hover:text-ivory/90 transition-colors tracking-wide" x-text="link.label"></a>
+          </template>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(254,249,245,0.1);" class="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-sans text-[10px] text-ivory/30">© 2026 Nora Gerstenberg · Kosmetikerin Berlin</p>
+      <div class="flex flex-wrap items-center justify-center gap-5">
+        <a href="/" class="font-sans text-[10px] text-ivory/40 hover:text-ivory/70 transition-colors tracking-wider uppercase">Behandlungsvereinbarung Fruchtsäure</a>
+        <a href="impressum.html" class="font-sans text-[10px] text-ivory/40 hover:text-ivory/70 transition-colors tracking-wider uppercase">Impressum</a>
+        <a href="datenschutz.html" class="font-sans text-[10px] text-ivory/70 transition-colors tracking-wider uppercase">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

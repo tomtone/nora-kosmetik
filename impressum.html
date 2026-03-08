@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de" x-data="sitePage()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum · Nora Gerstenberg</title>
+  <meta name="robots" content="noindex, follow" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory:  '#FEF9F5',
+            fog:    '#F7F1EC',
+            creme:  '#EAE1D8',
+            sand:   '#B7AAA0',
+            taupe:  '#84776E',
+            stone:  '#6F645D',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans:  ['Montserrat', 'sans-serif'],
+          },
+          letterSpacing: {
+            widest2: '0.25em',
+            widest3: '0.35em',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="relative">
+
+<!-- ═══════════════════════════════════════════ HEADER ══ -->
+<header style="border-bottom: 1px solid #EAE1D8;" class="bg-ivory py-5 px-6">
+  <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <a href="/" class="flex flex-col leading-none group">
+      <span class="font-serif text-lg text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
+      <span class="font-sans text-[9px] tracking-widest3 uppercase text-sand mt-0.5">Kosmetikerin</span>
+    </a>
+    <a href="/" class="font-sans text-xs tracking-widest uppercase text-taupe hover:text-stone transition-colors flex items-center gap-2">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Startseite
+    </a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ CONTENT ══ -->
+<main class="py-20 md:py-28 px-6" style="background: #FEF9F5; min-height: calc(100vh - 220px);">
+  <div class="max-w-2xl mx-auto">
+
+    <p class="font-sans text-xs tracking-widest uppercase text-sand mb-4">Rechtliches</p>
+    <h1 class="font-serif text-4xl md:text-5xl text-stone heading-line mb-14">Impressum</h1>
+
+    <!-- Angaben gemäß §5 TMG -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Angaben gemäß § 5 TMG</h2>
+      <p class="font-sans text-sm text-taupe leading-relaxed">
+        Nora Gerstenberg<br />
+        Krantorweg 34b<br />
+        13503 Berlin
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- Kontakt -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Kontakt</h2>
+      <p class="font-sans text-sm text-taupe leading-loose">
+        Telefon: <a href="tel:+4915153636898" class="hover:text-stone transition-colors">01515 3636 898</a><br />
+        E-Mail: <a href="mailto:gerstenberg.nora@gmx.de" class="hover:text-stone transition-colors">gerstenberg.nora@gmx.de</a>
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- Verantwortlich für den Inhalt -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p class="font-sans text-sm text-taupe leading-relaxed">
+        Nora Gerstenberg<br />
+        Krantorweg 34b<br />
+        13503 Berlin
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- Haftungsausschluss -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Haftung für Inhalte</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
+        Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Dienstanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Nach §§ 8 bis 10 TMG bin ich als Dienstanbieter nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- Haftung für Links -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Haftung für Links</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte kein Einfluss besteht. Deshalb kann für diese fremden Inhalte auch keine Gewähr übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.
+      </p>
+    </section>
+
+    <div style="height:1px; background:#EAE1D8;" class="mb-12"></div>
+
+    <!-- Urheberrecht -->
+    <section class="mb-12">
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Urheberrecht</h2>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung der jeweiligen Autorin. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer style="background:#6F645D;" class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
+      <div class="text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start mb-4">
+          <div class="rounded-full overflow-hidden flex-shrink-0" style="width:50px; height:50px; border:1px solid rgba(254,249,245,0.2);">
+            <img src="/logo.svg" alt="Logo" class="w-full h-full logo-crop scale-110" style="background: #EAE1D8;" />
+          </div>
+          <div>
+            <p class="font-serif text-2xl text-ivory mb-1">Nora Gerstenberg</p>
+            <p class="font-sans text-[10px] tracking-widest3 uppercase text-ivory/50">Kosmetikerin</p>
+          </div>
+        </div>
+        <p class="font-sans text-xs text-ivory/60 leading-loose">
+          Krantorweg 34b · 13503 Berlin<br />
+          01515 3636 898 · gerstenberg.nora@gmx.de
+        </p>
+      </div>
+
+      <div class="text-center md:text-right">
+        <p class="font-sans text-xs tracking-widest uppercase text-ivory/40 mb-4">Navigation</p>
+        <div class="flex flex-col gap-3">
+          <template x-for="link in navLinks">
+            <a :href="link.href" class="font-sans text-xs text-ivory/60 hover:text-ivory/90 transition-colors tracking-wide" x-text="link.label"></a>
+          </template>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(254,249,245,0.1);" class="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-sans text-[10px] text-ivory/30">© 2026 Nora Gerstenberg · Kosmetikerin Berlin</p>
+      <div class="flex flex-wrap items-center justify-center gap-5">
+        <a href="/" class="font-sans text-[10px] text-ivory/40 hover:text-ivory/70 transition-colors tracking-wider uppercase">Behandlungsvereinbarung Fruchtsäure</a>
+        <a href="impressum.html" class="font-sans text-[10px] text-ivory/70 transition-colors tracking-wider uppercase">Impressum</a>
+        <a href="datenschutz.html" class="font-sans text-[10px] text-ivory/40 hover:text-ivory/70 transition-colors tracking-wider uppercase">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

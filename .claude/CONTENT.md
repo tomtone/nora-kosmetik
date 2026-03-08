@@ -52,3 +52,23 @@ Für mich ist Kosmetik mehr als eine Behandlung. Es ist eine stille Form der Zuw
 Ich möchte einen Ort schaffen, an dem Frauen sich nicht nur gepflegt, sondern wirklich gesehen und wohl fühlen. Mit Feingefühl, Zeit und Aufmerksamkeit entsteht ein Raum, in dem man loslassen, durchatmen und wieder bei sich ankommen darf.
 
 Ich tue, was ich tue, weil ich daran glaube, dass wahre Ausstrahlung dort beginnt, wo man sich in der eigenen Haut geborgen fühlt.
+
+## Das Studio (langversion)
+Mein Studio ist ein Ort, an dem Ruhe nicht nur ein Gefühl bleibt, sondern spürbar wird.
+
+Inmitten eines oft schnellen und lauten Alltags war es mir wichtig, einen Raum zu schaffen, der Wärme, Geborgenheit und Leichtigkeit ausstrahlt. Einen Ort, an dem man nicht funktionieren muss, an dem nichts drängt und an dem man für einen Moment einfach nur bei sich selbst ankommen darf.
+
+Mit viel Liebe zum Detail ist eine Atmosphäre entstanden, die bewusst ruhig, harmonisch und gepflegt wirkt. Sanfte Farben, eine klare, stille Umgebung und kleine ausgewählte Elemente schaffen einen Raum, der nicht überladen ist, sondern offen, weich und einladend. Genau so, dass man beim Eintreten schon spüren darf… hier kann ich loslassen.
+
+Für mich beginnt Wohlbefinden nicht erst mit der Behandlung. Es beginnt in dem Moment, in dem man sich willkommen fühlt. Wenn der Blick zur Ruhe kommt. Wenn der Körper langsam nachgibt. Wenn aus Anspannung wieder ein bisschen Leichtigkeit wird. Mein Studio soll genau dafür da sein… für diese kleinen, kostbaren Momente, die im Alltag oft keinen Platz finden und doch so viel verändern können.
+
+Es ist mir wichtig, dass jeder Besuch mehr ist als nur ein Termin. Er soll sich anfühlen wie eine bewusste Auszeit… still, wohltuend und ganz auf das eigene Wohlgefühl ausgerichtet. Ein Ort, an dem Pflege, Ruhe und Wertschätzung zusammenkommen und in dem man sich nicht nur gut aufgehoben, sondern wirklich wohl fühlen darf.
+
+Mein Studio ist deshalb nicht einfach nur der Rahmen für meine Arbeit. Es ist ein Teil davon. Weil echte Entspannung dort beginnt, wo man sich sicher, gesehen und willkommen fühlt. Und weil Schönheit für mich immer auch etwas mit Ruhe, mit Sanftheit und mit dem Gefühl zu tun hat, für einen Moment ganz bei sich zu sein.
+
+## Das Studio (kurzversion)
+Das Studio ist mehr als ein Raum… es ist ein Rückzugsort für Ruhe, Pflege und bewusstes Wohlgefühl.
+
+In warmer, harmonischer Atmosphäre entsteht ein Ort, an dem der Alltag leiser werden darf und man sich vom ersten Moment an willkommen und aufgehoben fühlt. Sanfte Details, eine ruhige Umgebung und ein Gefühl von Geborgenheit machen jeden Besuch zu einer kleinen Auszeit.
+
+Denn wahre Schönheit entfaltet sich dort, wo man loslassen, durchatmen und ganz bei sich ankommen darf.
