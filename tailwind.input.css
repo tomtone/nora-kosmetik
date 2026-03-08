@@ -1,0 +1,347 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── fonts ── */
+/* montserrat-300 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/montserrat-v31-latin-300.woff2') format('woff2');
+}
+/* montserrat-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/montserrat-v31-latin-regular.woff2') format('woff2');
+}
+/* montserrat-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/montserrat-v31-latin-500.woff2') format('woff2');
+}
+/* montserrat-600 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/montserrat-v31-latin-600.woff2') format('woff2');
+}
+/* cormorant-garamond-300 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/cormorant-garamond-v21-latin-300.woff2') format('woff2');
+}
+/* cormorant-garamond-300italic - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  src: url('/fonts/cormorant-garamond-v21-latin-300italic.woff2') format('woff2');
+}
+/* cormorant-garamond-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/cormorant-garamond-v21-latin-regular.woff2') format('woff2');
+}
+/* cormorant-garamond-italic - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/fonts/cormorant-garamond-v21-latin-italic.woff2') format('woff2');
+}
+/* cormorant-garamond-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/cormorant-garamond-v21-latin-500.woff2') format('woff2');
+}
+/* cormorant-garamond-600 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/cormorant-garamond-v21-latin-600.woff2') format('woff2');
+}
+
+/* ── base ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #FEF9F5; color: #84776E; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+::selection { background: #EAE1D8; color: #6F645D; }
+
+/* ── custom scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #FEF9F5; }
+::-webkit-scrollbar-thumb { background: #B7AAA0; border-radius: 2px; }
+
+/* ── noise texture overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ── fade-up animation ── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── hero text animation ── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-title  { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 0.3s both; }
+.hero-sub    { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 0.7s both; }
+.hero-cta    { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 1.0s both; }
+.hero-logo   { animation: fadeSlideIn 1.4s cubic-bezier(.22,1,.36,1) 0.0s both; }
+
+/* ── line ornament ── */
+.ornament { position: relative; display: inline-block; }
+.ornament::before, .ornament::after {
+  content: '';
+  position: absolute; top: 50%; width: 40px; height: 1px; background: currentColor; opacity: 0.35;
+}
+.ornament::before { right: calc(100% + 12px); }
+.ornament::after  { left: calc(100% + 12px); }
+
+/* ── nav link hover ── */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+  background: #84776E; transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── service card hover ── */
+.service-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(132,119,110,0.12); }
+
+/* ── price row hover ── */
+.price-row { transition: background 0.25s ease; }
+.price-row:hover { background: rgba(234,225,216,0.5); }
+
+/* ── modal backdrop ── */
+[x-cloak] { display: none !important; }
+
+/* ── mobile menu ── */
+.mobile-menu { transition: opacity 0.3s ease, transform 0.3s ease; }
+
+/* ── section divider ── */
+.divider {
+  width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, #B7AAA0, transparent);
+  margin: 0 auto;
+}
+
+/* ── elegant underline for headings ── */
+.heading-line {
+  display: inline-block; position: relative; padding-bottom: 12px;
+}
+.heading-line::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 1px; background: #B7AAA0;
+}
+
+/* ── hero decorative rings ── */
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.ring-rotate { animation: rotateRing 40s linear infinite; }
+.ring-rotate-rev { animation: rotateRing 60s linear infinite reverse; }
+
+/* ── button ── */
+.btn-primary {
+  display: inline-block; padding: 14px 36px;
+  background: transparent; border: 1px solid #84776E; color: #84776E;
+  font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #84776E; color: #FEF9F5; transform: translateY(-1px); }
+
+.btn-filled {
+  display: inline-block; padding: 14px 36px;
+  background: #84776E; color: #FEF9F5; border: 1px solid #84776E;
+  font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.btn-filled:hover { background: #6F645D; border-color: #6F645D; transform: translateY(-1px); }
+
+/* ── floating WhatsApp ── */
+.float-wa {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #84776E; color: white;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 30px rgba(132,119,110,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.float-wa:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(132,119,110,0.45); }
+
+/* ── accordion ── */
+.accordion-body { overflow: hidden; transition: max-height 0.5s cubic-bezier(.22,1,.36,1), opacity 0.4s ease; max-height: 0; opacity: 0; }
+.accordion-body.open { max-height: 600px; opacity: 1; }
+
+/* ── logo image crop: remove black bars ── */
+.logo-crop {
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* ── print-only helper ── */
+.print-only { display: none; }
+
+/* ═══════════════════════════════════════ PRINT: BEHANDLUNGSVEREINBARUNG ══ */
+@media print {
+  @page { margin: 1.2cm; size: A4 portrait; }
+
+  /* hide entire page */
+  body > * { display: none !important; }
+
+  /* show only contract modal */
+  #modalContract {
+    display: block !important;
+    position: static !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+  #modalContract > .print-backdrop { display: none !important; }
+
+  /* inner card: full page */
+  #contractModal {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #fff !important;
+  }
+
+  /* hide screen UI chrome */
+  .modal-chrome,
+  .modal-actions { display: none !important; }
+
+  /* show print header */
+  .print-only { display: flex !important; }
+
+  /* base print typography */
+  .modal-body {
+    padding: 0 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+    color: #000 !important;
+  }
+  .modal-body * { color: #000 !important; font-size: 8.5pt !important; }
+
+  /* collapse space-y-6 section gaps */
+  .modal-body > * + * { margin-top: 7pt !important; }
+
+  /* compact print header */
+  .print-only {
+    margin-bottom: 8pt !important;
+    padding-bottom: 8pt !important;
+    border-bottom: 1px solid #ccc !important;
+  }
+  .print-only > div { margin-bottom: 5pt !important; }
+
+  /* section headings */
+  .print-section-title {
+    font-size: 8.5pt !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    font-style: normal !important;
+    margin-bottom: 4pt !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  /* kundendaten: stacked fields → bordered table */
+  .print-fields {
+    display: block !important;
+    border: 1px solid #999 !important;
+    border-bottom: none !important;
+    gap: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .print-fields > div {
+    display: flex !important;
+    flex-direction: row !important;
+    border-bottom: 1px solid #999 !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .print-fields label {
+    min-width: 28% !important;
+    padding: 2.5pt 6pt !important;
+    border-right: 1px solid #999 !important;
+    font-size: 8pt !important;
+    color: #000 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .print-fields input {
+    flex: 1;
+    padding: 2.5pt 6pt !important;
+    border: none !important;
+    background: transparent !important;
+    font-size: 8.5pt !important;
+  }
+
+  /* custom dot bullet → · character */
+  .modal-body li > span[class*="rounded-full"] { display: none !important; }
+  .modal-body li > span[class*="rounded-full"] + span::before { content: "·\00a0"; font-weight: 700; }
+
+  /* list layout */
+  .modal-body ul { padding: 0 !important; margin: 0 !important; }
+  .modal-body ul li { gap: 0 !important; padding: 1pt 0 !important; margin-top: 0 !important; }
+
+  /* checkboxes */
+  .modal-body li input[type="checkbox"] { width: 8pt !important; height: 8pt !important; margin-right: 5pt; flex-shrink: 0; }
+
+  /* thin dividers: collapse to minimal height */
+  .modal-body [style*="background:#EAE1D8"] { background: #ccc !important; margin: 2pt 0 !important; }
+
+  /* signature area */
+  .modal-body .grid { margin-top: 6pt !important; }
+  .signature-line { border-bottom-color: #000 !important; height: 18pt !important; }
+  .modal-body .grid label {
+    font-size: 8pt !important;
+    color: #000 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    margin-bottom: 2pt !important;
+  }
+}
