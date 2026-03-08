@@ -1,5 +1,6 @@
 function sitePage() {
   return {
+    scrolled: false,
     navLinks: [
       { label: 'Über mich',  href: '/#ueber-mich' },
       { label: 'Leistungen', href: '/#leistungen' },
@@ -7,7 +8,12 @@ function sitePage() {
       { label: 'Preise',     href: '/#preise' },
       { label: 'FAQ',        href: '/#faq' },
       { label: 'Kontakt',    href: '/#kontakt' },
-    ]
+    ],
+    init() {
+      window.addEventListener('scroll', () => {
+        this.scrolled = window.scrollY > 50;
+      });
+    }
   }
 }
 

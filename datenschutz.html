@@ -14,10 +14,11 @@
 <body class="relative">
 
 <!-- ═══════════════════════════════════════════ HEADER ══ -->
-<header style="border-bottom: 1px solid #EAE1D8;" class="bg-ivory py-5 px-6">
-  <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <a  href="index.html" class="flex flex-col leading-none group">
-      <span class="font-serif text-lg text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
+<header class="fixed top-0 left-0 right-0 z-40 transition-all duration-500 border-b border-creme"
+        :class="scrolled ? 'bg-ivory/95 backdrop-blur-md shadow-sm' : 'bg-ivory'">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="flex flex-col leading-none group">
+      <span class="font-serif text-lg md:text-xl text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
       <span class="font-sans text-[9px] tracking-widest3 uppercase text-sand mt-0.5">Kosmetikerin</span>
     </a>
     <a  href="index.html" class="font-sans text-xs tracking-widest uppercase text-taupe hover:text-stone transition-colors flex items-center gap-2">
@@ -39,7 +40,7 @@
     <!-- Einleitung -->
     <section class="mb-12">
       <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-        Der Schutz Ihrer persönlichen Daten ist mir ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, welche personenbezogenen Daten auf dieser Website erhoben werden, wie sie verwendet werden und welche Rechte Sie in Bezug auf Ihre Daten haben. Sie gilt gemäß der Datenschutz-Grundverordnung (DSGVO) sowie dem Bundesdatenschutzgesetz (BDSG).
+        Der Schutz Ihrer persönlichen Daten ist mir ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, welche personenbezogenen Daten auf dieser Website erhoben werden, wie sie verwendet werden und welche Rechte Sie in Bezug auf Ihre Daten haben. Sie gilt gemäß der Datenschutz-Grundverordnung (DSGVO), dem Bundesdatenschutzgesetz (BDSG) sowie dem Digitale-Dienste-Gesetz (DDG).
       </p>
     </section>
 
@@ -56,6 +57,9 @@
       <p class="font-sans text-sm text-taupe leading-loose">
         Telefon: <a href="tel:+4915153636898" class="hover:text-stone transition-colors">01515 3636 898</a><br />
         E-Mail: <a href="mailto:gerstenberg.nora@gmx.de" class="hover:text-stone transition-colors">gerstenberg.nora@gmx.de</a>
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed mt-4">
+        Die vollständigen Pflichtangaben gemäß § 5 DDG sind im <a href="impressum.html" class="text-taupe hover:text-stone transition-colors underline underline-offset-2">Impressum</a> einsehbar.
       </p>
     </section>
 
@@ -94,31 +98,12 @@
 
     <!-- 4. Externe Dienste -->
     <section class="mb-12">
-      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">4. Externe Dienste und CDN</h2>
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">4. Externe Dienste</h2>
       <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-6">
-        Zum Betrieb dieser Website werden externe Ressourcen eingebunden. Beim Abruf dieser Ressourcen wird Ihre IP-Adresse an den jeweiligen Anbieter übermittelt.
+        Diese Website bindet keine externen Ressourcen beim Seitenaufruf ein. Alle Skripte, Schriften und Stylesheets werden lokal ausgeliefert.
       </p>
 
       <div class="space-y-6">
-        <!-- jsDelivr -->
-        <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
-          <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">jsDelivr CDN</p>
-          <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-1">
-            Für das JavaScript-Framework Alpine.js wird jsDelivr (Prospect One, Królewska 65A, 30-081 Krakau, Polen) als Content Delivery Network genutzt.
-          </p>
-          <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-            Datenschutzinformationen: <span class="text-taupe">www.jsdelivr.com/privacy-policy-jsdelivr-net</span>
-          </p>
-        </div>
-
-        <!-- Tailwind CDN -->
-        <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
-          <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">Tailwind CSS CDN</p>
-          <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-            Das CSS-Framework Tailwind wird über den CDN-Dienst von Tailwind Labs Inc. geladen. Dabei kann eine Verbindung zu Servern von Tailwind Labs hergestellt werden, bei der Ihre IP-Adresse übermittelt wird.
-          </p>
-        </div>
-
         <!-- WhatsApp -->
         <div style="border-left: 2px solid #EAE1D8;" class="pl-5">
           <p class="font-sans text-xs tracking-widest uppercase text-stone mb-2">WhatsApp</p>

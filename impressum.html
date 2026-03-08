@@ -14,10 +14,11 @@
 <body class="relative">
 
 <!-- ═══════════════════════════════════════════ HEADER ══ -->
-<header style="border-bottom: 1px solid #EAE1D8;" class="bg-ivory py-5 px-6">
-  <div class="max-w-6xl mx-auto flex items-center justify-between">
+<header class="fixed top-0 left-0 right-0 z-40 transition-all duration-500 border-b border-creme"
+        :class="scrolled ? 'bg-ivory/95 backdrop-blur-md shadow-sm' : 'bg-ivory'">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
     <a href="index.html" class="flex flex-col leading-none group">
-      <span class="font-serif text-lg text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
+      <span class="font-serif text-lg md:text-xl text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
       <span class="font-sans text-[9px] tracking-widest3 uppercase text-sand mt-0.5">Kosmetikerin</span>
     </a>
     <a href="index.html" class="font-sans text-xs tracking-widest uppercase text-taupe hover:text-stone transition-colors flex items-center gap-2">
@@ -36,9 +37,9 @@
     <p class="font-sans text-xs tracking-widest uppercase text-sand mb-4">Rechtliches</p>
     <h1 class="font-serif text-4xl md:text-5xl text-stone heading-line mb-14">Impressum</h1>
 
-    <!-- Angaben gemäß §5 TMG -->
+    <!-- Angaben gemäß § 5 DDG -->
     <section class="mb-12">
-      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Angaben gemäß § 5 TMG</h2>
+      <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Angaben gemäß § 5 DDG</h2>
       <p class="font-sans text-sm text-taupe leading-relaxed">
         Nora Gerstenberg<br />
         Krantorweg 34b<br />
@@ -75,10 +76,13 @@
     <section class="mb-12">
       <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Haftung für Inhalte</h2>
       <p class="font-sans text-sm text-taupe/80 leading-relaxed mb-4">
-        Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Dienstanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+        Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird jedoch keine Gewähr übernommen.
       </p>
       <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-        Nach §§ 8 bis 10 TMG bin ich als Dienstanbieter nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.
+        Als Anbieter digitaler Dienste bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Eine Verpflichtung zur Überwachung übermittelter oder gespeicherter fremder Informationen besteht nur im Rahmen der gesetzlichen Vorgaben. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Eine Haftung ist erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen werden diese Inhalte umgehend entfernt.
       </p>
     </section>
 
@@ -88,7 +92,13 @@
     <section class="mb-12">
       <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Haftung für Links</h2>
       <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-        Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte kein Einfluss besteht. Deshalb kann für diese fremden Inhalte auch keine Gewähr übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.
+        Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte kein Einfluss besteht. Deshalb wird für diese fremden Inhalte auch keine Gewähr übernommen.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden derartige Links umgehend entfernt.
       </p>
     </section>
 
@@ -98,7 +108,13 @@
     <section class="mb-12">
       <h2 class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-5">Urheberrecht</h2>
       <p class="font-sans text-sm text-taupe/80 leading-relaxed">
-        Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung der jeweiligen Autorin. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+        Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der vorherigen schriftlichen Zustimmung der jeweiligen Rechteinhaberin oder Autorin.
+      </p>
+      <p class="font-sans text-sm text-taupe/80 leading-relaxed">
+        Soweit Inhalte auf dieser Website nicht von der Betreiberin erstellt wurden, werden die Urheberrechte Dritter beachtet und entsprechende Inhalte als solche gekennzeichnet. Sollten Sie dennoch auf eine Urheberrechtsverletzung aufmerksam werden, wird um einen entsprechenden Hinweis gebeten. Bei Bekanntwerden von Rechtsverletzungen werden derartige Inhalte umgehend entfernt.
       </p>
     </section>
 
