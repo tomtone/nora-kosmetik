@@ -849,7 +849,7 @@
         <div style="border-bottom:1px solid #EAE1D8;">
           <button class="w-full flex items-center justify-between py-5 text-left group"
                   @click="activeTab === i ? activeTab = null : activeTab = i">
-            <span class="font-sans text-sm text-stone group-hover:text-taupe transition-colors pr-4" x-text="item.q"></span>
+            <span class="font-sans text-sm text-stone group-hover:text-taupe transition-colors pr-4" x-text="item.frage"></span>
             <span class="flex-shrink-0 text-sand transition-transform duration-300"
                   :class="activeTab === i ? 'rotate-45' : ''">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -858,7 +858,7 @@
             </span>
           </button>
           <div class="accordion-body" :class="activeTab === i ? 'open' : ''">
-            <p class="font-sans text-xs text-taupe/80 leading-loose pb-5 pr-8" x-text="item.a"></p>
+            <p class="font-sans text-xs text-taupe/80 leading-loose pb-5 pr-8" x-text="item.antwort"></p>
           </div>
         </div>
       </template>
