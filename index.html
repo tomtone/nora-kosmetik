@@ -499,27 +499,14 @@
       <!-- portrait column -->
       <div class="fade-up flex flex-col items-center gap-10" x-intersect="$el.classList.add('visible')" style="transition-delay:0.35s">
 
-        <!-- two-image editorial collage -->
-        <div class="grid grid-cols-2 gap-3 w-full max-w-sm mx-auto items-start">
-          <!-- image 1 – left -->
-          <div class="relative">
-            <div class="absolute -bottom-3 -right-3 w-full h-full -z-10"
-                 style="border: 1px solid #EAE1D8;"></div>
-            <div class="overflow-hidden aspect-[3/4]" style="border: 1px solid #EAE1D8;">
-              <img src="images/nora-am-behandlungsplatz.png"
-                   alt="Nora Gerstenberg am Behandlungsplatz"
-                   class="w-full h-full object-cover object-center" />
-            </div>
-          </div>
-          <!-- image 2 – offset down, right -->
-          <div class="relative mt-12">
-            <div class="absolute -bottom-3 -right-3 w-full h-full -z-10"
-                 style="border: 1px solid #EAE1D8;"></div>
-            <div class="overflow-hidden aspect-[3/4]" style="border: 1px solid #EAE1D8;">
-              <img src="images/nora-am-behandlungsplatz-1.png"
-                   alt="Nora Gerstenberg bei der Behandlung"
-                   class="w-full h-full object-cover object-center" />
-            </div>
+        <!-- single portrait -->
+        <div class="relative w-full max-w-sm mx-auto">
+          <div class="absolute -bottom-3 -right-3 w-full h-full -z-10"
+               style="border: 1px solid #EAE1D8;"></div>
+          <div class="overflow-hidden aspect-[3/4]" style="border: 1px solid #EAE1D8;">
+            <img src="images/nora-portrait.jpeg"
+                 alt="Nora Gerstenberg"
+                 class="w-full h-full object-cover object-center" />
           </div>
         </div>
 
@@ -982,5 +969,33 @@
 </footer>
 
 <script src="site.js"></script>
+
+<!-- ══════════════════════════════════ PARTNER-SHOP STÖRER ══ -->
+<div class="affiliate-stoerer-wrap" id="affiliateStoerer">
+  <button class="affiliate-stoerer__close" id="affiliateStoererClose" aria-label="Hinweis schließen">×</button>
+  <a href="https://cnc-direct.de/account/login/?registerCode=1178246"
+     target="_blank" rel="noopener noreferrer sponsored"
+     aria-label="Zum Partner-Shop für Pflegeprodukte"
+     class="affiliate-stoerer">
+    <div class="affiliate-stoerer__eyebrow">Partner-Shop</div>
+    <div class="affiliate-stoerer__title">Pflegeprodukte für zuhause</div>
+    <div class="affiliate-stoerer__text">Die Produkte, die ich meinen Kundinnen empfehle – jetzt auch für zuhause erhältlich.</div>
+    <span class="affiliate-stoerer__button">Jetzt shoppen</span>
+  </a>
+</div>
+<script>
+  (function () {
+    var stoerer = document.getElementById('affiliateStoerer');
+    var closeBtn = document.getElementById('affiliateStoererClose');
+    if (!stoerer || !closeBtn) return;
+    var hiddenUntil = localStorage.getItem('affiliateStoererHiddenUntil');
+    if (hiddenUntil && Date.now() < Number(hiddenUntil)) { stoerer.style.display = 'none'; return; }
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      localStorage.setItem('affiliateStoererHiddenUntil', String(Date.now() + 7 * 24 * 60 * 60 * 1000));
+      stoerer.style.display = 'none';
+    });
+  })();
+</script>
 </body>
 </html>

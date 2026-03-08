@@ -190,6 +190,59 @@ body::before {
 .accordion-body { overflow: hidden; transition: max-height 0.5s cubic-bezier(.22,1,.36,1), opacity 0.4s ease; max-height: 0; opacity: 0; }
 .accordion-body.open { max-height: 600px; opacity: 1; }
 
+/* ── affiliate störer ── */
+.affiliate-stoerer-wrap {
+  position: fixed; right: 20px; bottom: 100px;
+  width: min(320px, calc(100vw - 32px)); z-index: 998;
+}
+.affiliate-stoerer {
+  display: block; width: 100%;
+  background: rgba(254,249,245,0.97); border: 1px solid #EAE1D8;
+  border-radius: 16px; box-shadow: 0 14px 48px rgba(111,100,93,0.15);
+  padding: 20px; text-decoration: none; color: #6F645D;
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.affiliate-stoerer:hover { transform: translateY(-2px); box-shadow: 0 20px 56px rgba(111,100,93,0.2); }
+.affiliate-stoerer__eyebrow {
+  font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: #B7AAA0; margin-bottom: 8px;
+}
+.affiliate-stoerer__title {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px; line-height: 1.2;
+  font-weight: 500; color: #6F645D; margin-bottom: 6px;
+}
+.affiliate-stoerer__text {
+  font-family: 'Montserrat', sans-serif; font-size: 12px; line-height: 1.6;
+  color: #84776E; margin-bottom: 14px;
+}
+.affiliate-stoerer__button {
+  display: inline-block; padding: 9px 18px;
+  background: #84776E; color: #FEF9F5;
+  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.affiliate-stoerer__hint {
+  display: block; margin-top: 10px;
+  font-family: 'Montserrat', sans-serif; font-size: 9px;
+  color: #B7AAA0; letter-spacing: 0.08em;
+}
+.affiliate-stoerer__close {
+  position: absolute; top: -10px; right: -10px;
+  width: 26px; height: 26px; border: 1px solid #EAE1D8; border-radius: 50%;
+  background: #FEF9F5; box-shadow: 0 4px 12px rgba(111,100,93,0.15);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1;
+  color: #B7AAA0; z-index: 10;
+  transition: color 0.2s ease;
+}
+.affiliate-stoerer__close:hover { color: #6F645D; }
+@media (max-width: 640px) {
+  .affiliate-stoerer-wrap { right: 12px; bottom: 88px; width: calc(100vw - 24px); }
+  .affiliate-stoerer { padding: 16px; border-radius: 14px; }
+  .affiliate-stoerer__title { font-size: 18px; }
+}
+
 /* ── print-only helper ── */
 
 /* ═══════════════════════════════════════ PRINT: BEHANDLUNGSVEREINBARUNG ══ */
