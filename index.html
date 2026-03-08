@@ -5,12 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nora Gerstenberg · Kosmetikerin Berlin</title>
   <meta name="description" content="Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion und mehr. Termine per WhatsApp oder Mail." />
+  <link rel="canonical" href="https://www.nora-gerstenberg.de/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.nora-gerstenberg.de/" />
+  <meta property="og:title" content="Nora Gerstenberg · Kosmetikerin Berlin" />
+  <meta property="og:description" content="Professionelle Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion, Teenager Reinigung & mehr. Termine per WhatsApp." />
+  <meta property="og:image" content="https://www.nora-gerstenberg.de/images/nora-am-behandlungsplatz-1.jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Nora Gerstenberg am Behandlungsplatz" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Nora Gerstenberg · Kosmetikerin" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nora Gerstenberg · Kosmetikerin Berlin" />
+  <meta name="twitter:description" content="Professionelle Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion & mehr." />
+  <meta name="twitter:image" content="https://www.nora-gerstenberg.de/images/nora-am-behandlungsplatz-1.jpeg" />
+  <meta name="twitter:image:alt" content="Nora Gerstenberg am Behandlungsplatz" />
+
   <script defer src="js/alpine-intersect.min.js"></script>
   <script defer src="js/alpine.min.js"></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
   <meta name="theme-color" content="#FEF9F5" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured Data: BeautySalon + Services -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BeautySalon",
+        "@id": "https://www.nora-gerstenberg.de/#business",
+        "name": "Nora Gerstenberg · Kosmetikerin",
+        "description": "Professionelle Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion, Teenager Reinigung und Lichttherapie. Individuell abgestimmt, mit Ruhe und Sorgfalt.",
+        "url": "https://www.nora-gerstenberg.de/",
+        "logo": "https://www.nora-gerstenberg.de/logo.svg",
+        "image": "https://www.nora-gerstenberg.de/images/nora-am-behandlungsplatz-1.jpeg",
+        "telephone": "+4915153636898",
+        "email": "gerstenberg.nora@gmx.de",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Krantorweg 34b",
+          "postalCode": "13503",
+          "addressLocality": "Berlin",
+          "addressCountry": "DE"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Berlin"
+        },
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "paymentAccepted": "Cash, Bank Transfer",
+        "founder": {
+          "@type": "Person",
+          "@id": "https://www.nora-gerstenberg.de/#person",
+          "name": "Nora Gerstenberg",
+          "jobTitle": "Kosmetikerin",
+          "worksFor": { "@id": "https://www.nora-gerstenberg.de/#business" }
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Kosmetische Behandlungen",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Kosmetikbehandlung mit Maske und Peeling",
+              "description": "Professionelle Gesichtsbehandlung mit Maske und Peeling für sichtbar gepflegte, strahlende Haut.",
+              "price": "79.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Kosmetikbehandlung mit Maske und Peeling",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Kosmetikbehandlung mit Diamant Microdermabrasion",
+              "description": "Professionelle Gesichtsbehandlung mit modernster Diamant-Mikrodermabrasion für sichtbar gepflegte, strahlende Haut.",
+              "price": "89.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Kosmetikbehandlung mit Diamant Microdermabrasion",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Microneedling Gesicht",
+              "description": "Innovative Behandlung zur Hautverjüngung. Feine Micro-Kanäle regen die Kollagenproduktion an und verbessern Hautstruktur, Elastizität und Erscheinungsbild.",
+              "price": "99.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Microneedling",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Microneedling mit Dekolleté",
+              "description": "Microneedling-Behandlung für Gesicht und Dekolleté zur Hautverjüngung und Kollagenstimulation.",
+              "price": "130.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Microneedling mit Dekolleté",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Fruchtsäurebehandlung Gesicht",
+              "description": "Sanftes chemisches Peeling für ein gleichmäßigeres Hautbild. Ideal bei Unreinheiten, Pigmentstörungen, Akne oder feinen Linien. Inklusive ausführlicher Beratung.",
+              "price": "99.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Fruchtsäurebehandlung",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Fruchtsäurebehandlung mit Dekolleté",
+              "description": "Fruchtsäure-Peeling für Gesicht und Dekolleté – für ein gleichmäßigeres Hautbild.",
+              "price": "130.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Fruchtsäurebehandlung mit Dekolleté",
+                "duration": "PT60M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Teenager Reinigungsbehandlung",
+              "description": "Professionelle Reinigungsbehandlung inklusive persönlicher Hautberatung – speziell für junge Haut in der Pubertät. Sanft, effektiv und nachhaltig.",
+              "price": "49.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Teenager Reinigungsbehandlung inkl. Beratung",
+                "duration": "PT45M",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Skin Light Lichttherapie (Add-On)",
+              "description": "Ergänzende Lichttherapie zu jeder Behandlung. Die Farbwahl der Lichtfrequenz wird individuell nach dem aktuellen Hautzustand ausgewählt.",
+              "price": "10.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Skin Light Lichttherapie",
+                "provider": { "@id": "https://www.nora-gerstenberg.de/#business" }
+              }
+            }
+          ]
+        },
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.nora-gerstenberg.de/#website",
+        "url": "https://www.nora-gerstenberg.de/",
+        "name": "Nora Gerstenberg · Kosmetikerin Berlin",
+        "publisher": { "@id": "https://www.nora-gerstenberg.de/#business" },
+        "inLanguage": "de-DE"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.nora-gerstenberg.de/#webpage",
+        "url": "https://www.nora-gerstenberg.de/",
+        "name": "Nora Gerstenberg · Kosmetikerin Berlin",
+        "description": "Professionelle Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion und mehr.",
+        "isPartOf": { "@id": "https://www.nora-gerstenberg.de/#website" },
+        "about": { "@id": "https://www.nora-gerstenberg.de/#business" },
+        "inLanguage": "de-DE"
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="relative">
 
