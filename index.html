@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="de" x-data="site()" x-init="init()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nora Gerstenberg · Kosmetikerin Berlin</title>
+  <meta name="description" content="Kosmetikbehandlungen in Berlin – Microneedling, Fruchtsäurepeeling, Diamant Microdermabrasion und mehr. Termine per WhatsApp oder Mail." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory:   '#FEF9F5',
+            fog:     '#F7F1EC',
+            creme:   '#EAE1D8',
+            sand:    '#B7AAA0',
+            taupe:   '#84776E',
+            stone:   '#6F645D',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans:  ['Montserrat', 'sans-serif'],
+          },
+          letterSpacing: {
+            widest2: '0.25em',
+            widest3: '0.35em',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ── base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #FEF9F5; color: #84776E; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    ::selection { background: #EAE1D8; color: #6F645D; }
+
+    /* ── custom scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #FEF9F5; }
+    ::-webkit-scrollbar-thumb { background: #B7AAA0; border-radius: 2px; }
+
+    /* ── noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ── fade-up animation ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── hero text animation ── */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-title  { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 0.3s both; }
+    .hero-sub    { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 0.7s both; }
+    .hero-cta    { animation: fadeSlideIn 1.2s cubic-bezier(.22,1,.36,1) 1.0s both; }
+    .hero-logo   { animation: fadeSlideIn 1.4s cubic-bezier(.22,1,.36,1) 0.0s both; }
+
+    /* ── line ornament ── */
+    .ornament { position: relative; display: inline-block; }
+    .ornament::before, .ornament::after {
+      content: '';
+      position: absolute; top: 50%; width: 40px; height: 1px; background: currentColor; opacity: 0.35;
+    }
+    .ornament::before { right: calc(100% + 12px); }
+    .ornament::after  { left: calc(100% + 12px); }
+
+    /* ── nav link hover ── */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+      background: #84776E; transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── service card hover ── */
+    .service-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(132,119,110,0.12); }
+
+    /* ── price row hover ── */
+    .price-row { transition: background 0.25s ease; }
+    .price-row:hover { background: rgba(234,225,216,0.5); }
+
+    /* ── modal backdrop ── */
+    [x-cloak] { display: none !important; }
+
+    /* ── mobile menu ── */
+    .mobile-menu { transition: opacity 0.3s ease, transform 0.3s ease; }
+
+    /* ── section divider ── */
+    .divider {
+      width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, #B7AAA0, transparent);
+      margin: 0 auto;
+    }
+
+    /* ── elegant underline for headings ── */
+    .heading-line {
+      display: inline-block; position: relative; padding-bottom: 12px;
+    }
+    .heading-line::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 48px; height: 1px; background: #B7AAA0;
+    }
+
+    /* ── hero decorative rings ── */
+    @keyframes rotateRing {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .ring-rotate { animation: rotateRing 40s linear infinite; }
+    .ring-rotate-rev { animation: rotateRing 60s linear infinite reverse; }
+
+    /* ── button ── */
+    .btn-primary {
+      display: inline-block; padding: 14px 36px;
+      background: transparent; border: 1px solid #84776E; color: #84776E;
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #84776E; color: #FEF9F5; transform: translateY(-1px); }
+
+    .btn-filled {
+      display: inline-block; padding: 14px 36px;
+      background: #84776E; color: #FEF9F5; border: 1px solid #84776E;
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-filled:hover { background: #6F645D; border-color: #6F645D; transform: translateY(-1px); }
+
+    /* ── floating WhatsApp ── */
+    .float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #84776E; color: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(132,119,110,0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+    .float-wa:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(132,119,110,0.45); }
+
+    /* ── accordion ── */
+    .accordion-body { overflow: hidden; transition: max-height 0.5s cubic-bezier(.22,1,.36,1), opacity 0.4s ease; max-height: 0; opacity: 0; }
+    .accordion-body.open { max-height: 600px; opacity: 1; }
+
+    /* ── logo image crop: remove black bars ── */
+    .logo-crop {
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    /* ── print-only helper ── */
+    .print-only { display: none; }
+
+    /* ═══════════════════════════════════════ PRINT: BEHANDLUNGSVEREINBARUNG ══ */
+    @media print {
+      @page { margin: 1.2cm; size: A4 portrait; }
+
+      /* hide entire page */
+      body > * { display: none !important; }
+
+      /* show only contract modal */
+      #modalContract {
+        display: block !important;
+        position: static !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+      #modalContract > .print-backdrop { display: none !important; }
+
+      /* inner card: full page */
+      #contractModal {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: #fff !important;
+      }
+
+      /* hide screen UI chrome */
+      .modal-chrome,
+      .modal-actions { display: none !important; }
+
+      /* show print header */
+      .print-only { display: flex !important; }
+
+      /* base print typography */
+      .modal-body {
+        padding: 0 !important;
+        font-size: 8.5pt !important;
+        line-height: 1.35 !important;
+        color: #000 !important;
+      }
+      .modal-body * { color: #000 !important; font-size: 8.5pt !important; }
+
+      /* collapse space-y-6 section gaps */
+      .modal-body > * + * { margin-top: 7pt !important; }
+
+      /* compact print header */
+      .print-only {
+        margin-bottom: 8pt !important;
+        padding-bottom: 8pt !important;
+        border-bottom: 1px solid #ccc !important;
+      }
+      .print-only > div { margin-bottom: 5pt !important; }
+
+      /* section headings */
+      .print-section-title {
+        font-size: 8.5pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        letter-spacing: 0 !important;
+        text-transform: none !important;
+        font-style: normal !important;
+        margin-bottom: 4pt !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+      }
+
+      /* kundendaten: stacked fields → bordered table */
+      .print-fields {
+        display: block !important;
+        border: 1px solid #999 !important;
+        border-bottom: none !important;
+        gap: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      .print-fields > div {
+        display: flex !important;
+        flex-direction: row !important;
+        border-bottom: 1px solid #999 !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .print-fields label {
+        min-width: 28% !important;
+        padding: 2.5pt 6pt !important;
+        border-right: 1px solid #999 !important;
+        font-size: 8pt !important;
+        color: #000 !important;
+        letter-spacing: 0 !important;
+        text-transform: none !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .print-fields input {
+        flex: 1;
+        padding: 2.5pt 6pt !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: 8.5pt !important;
+      }
+
+      /* custom dot bullet → · character */
+      .modal-body li > span[class*="rounded-full"] { display: none !important; }
+      .modal-body li > span[class*="rounded-full"] + span::before { content: "·\00a0"; font-weight: 700; }
+
+      /* list layout */
+      .modal-body ul { padding: 0 !important; margin: 0 !important; }
+      .modal-body ul li { gap: 0 !important; padding: 1pt 0 !important; margin-top: 0 !important; }
+
+      /* checkboxes */
+      .modal-body li input[type="checkbox"] { width: 8pt !important; height: 8pt !important; margin-right: 5pt; flex-shrink: 0; }
+
+      /* thin dividers: collapse to minimal height */
+      .modal-body [style*="background:#EAE1D8"] { background: #ccc !important; margin: 2pt 0 !important; }
+
+      /* signature area */
+      .modal-body .grid { margin-top: 6pt !important; }
+      .signature-line { border-bottom-color: #000 !important; height: 18pt !important; }
+      .modal-body .grid label {
+        font-size: 8pt !important;
+        color: #000 !important;
+        letter-spacing: 0 !important;
+        text-transform: none !important;
+        margin-bottom: 2pt !important;
+      }
+    }
+  </style>
+</head>
+<body class="relative">
+
+<!-- ═══════════════════════════════════════════ FLOATING WHATSAPP ══ -->
+<a href="https://wa.me/4915153636898" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp Termin">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ═══════════════════════════════════════════ MODAL: CONTRACT ══ -->
+<div id="modalContract" x-show="modalOpen" x-cloak
+  class="fixed inset-0 z-50 flex items-start justify-center p-4 pt-8 md:pt-16"
+  @keydown.escape.window="modalOpen = false">
+  <div class="print-backdrop absolute inset-0 bg-stone/30 backdrop-blur-sm" @click="modalOpen = false"></div>
+  <div id="contractModal" class="relative z-10 w-full max-w-2xl bg-ivory rounded-none shadow-2xl max-h-[85vh] overflow-y-auto"
+       style="border: 1px solid #EAE1D8;">
+
+    <!-- screen header (hidden on print) -->
+    <div class="modal-chrome sticky top-0 bg-ivory z-10 flex items-center justify-between px-8 py-5"
+         style="border-bottom: 1px solid #EAE1D8;">
+      <div>
+        <p class="font-sans text-xs tracking-widest2 uppercase text-sand mb-1">Behandlungsvereinbarung</p>
+        <h3 class="font-serif text-2xl text-stone">Fruchtsäurebehandlung</h3>
+      </div>
+      <button @click="modalOpen = false" class="text-sand hover:text-taupe transition-colors p-2">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- body -->
+    <div class="modal-body px-8 py-8 font-sans text-sm leading-relaxed text-stone space-y-6">
+
+      <!-- print-only header: logo + title (hidden on screen) -->
+      <div class="print-only" style="flex-direction:column; align-items:center; text-align:center; margin-bottom:8pt; padding-bottom:8pt; border-bottom:1px solid #ddd;">
+        <div style="width:38pt; height:38pt; border-radius:50%; overflow:hidden; border:0.5pt solid #bbb; margin-bottom:4pt;">
+          <img src="/logo.png" alt="Nora Gerstenberg" style="width:100%; height:100%; object-fit:cover; object-position:center 40%;" />
+        </div>
+        <p style="font-family:Arial,sans-serif; font-size:9pt; font-weight:700; letter-spacing:0.12em; color:#000; margin:0 0 1pt;">NORA GERSTENBERG</p>
+        <p style="font-family:Arial,sans-serif; font-size:7pt; letter-spacing:0.2em; color:#666; margin:0 0 1pt;">KOSMETIKERIN</p>
+        <p style="font-family:Arial,sans-serif; font-size:7pt; color:#666; margin:0 0 6pt;">01515 3636 898</p>
+        <h2 style="font-family:Arial,sans-serif; font-size:12pt; font-weight:700; color:#000; margin:0; width:100%; text-align:center;">Behandlungsvereinbarung Fruchtsäurebehandlung</h2>
+      </div>
+
+      <div>
+        <p class="print-section-title font-sans text-xs tracking-widest2 uppercase text-sand mb-3">Kundendaten</p>
+        <div class="print-fields grid grid-cols-1 gap-3">
+          <template x-for="f in ['Name', 'Geburtsdatum', 'Adresse', 'Telefon']">
+            <div class="flex flex-col">
+              <label class="text-xs text-sand mb-1" x-text="f"></label>
+              <input type="text" :name="f"
+                class="w-full border-b border-creme bg-transparent py-2 text-stone placeholder-sand/50 text-sm font-sans focus:outline-none focus:border-taupe transition-colors"
+                :placeholder="f">
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div style="width:100%; height:1px; background:#EAE1D8;"></div>
+
+      <div>
+        <p class="print-section-title font-serif text-lg text-stone mb-3">Über die Behandlung</p>
+        <p class="text-sm text-taupe/80 leading-relaxed">
+          Die Fruchtsäurebehandlung ist ein kosmetisches Peeling zur Verbesserung des Hautbildes. Dabei werden speziell abgestimmte Säuren eingesetzt, um abgestorbene Hautzellen zu lösen, die Zellerneuerung anzuregen und Hautprobleme wie Unreinheiten, Pigmentstörungen, Akne oder feine Linien zu verbessern.
+        </p>
+      </div>
+
+      <div>
+        <p class="print-section-title font-serif text-lg text-stone mb-3">Mögliche Reaktionen & Risiken</p>
+        <ul class="space-y-2">
+          <template x-for="r in ['Rötungen, Brennen oder Spannungsgefühl','Schuppung der Haut','Erhöhte Lichtempfindlichkeit','Pigmentverschiebungen bei mangelndem Sonnenschutz']">
+            <li class="flex items-start gap-3 text-sm text-taupe/80">
+              <span class="mt-1.5 w-1 h-1 rounded-full bg-sand flex-shrink-0"></span>
+              <span x-text="r"></span>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div>
+        <p class="print-section-title font-serif text-lg text-stone mb-3">Einverständniserklärung</p>
+        <p class="text-sm text-taupe/80 mb-3">Ich bestätige, dass ich ausführlich über die Fruchtsäurebehandlung, deren Wirkung, mögliche Risiken und Nebenwirkungen aufgeklärt wurde. Ich erkläre, dass ich:</p>
+        <ul class="space-y-2">
+          <template x-for="item in ['keine Hauterkrankungen oder Infektionen habe','nicht schwanger bin (falls zutreffend)','keine säureempfindliche oder verletzte Haut aufweise','keine kontraindizierten Medikamente einnehme (z. B. Isotretinoin)']">
+            <li class="flex items-center gap-3 text-sm text-taupe/80">
+              <input type="checkbox" class="accent-taupe w-4 h-4 flex-shrink-0" />
+              <span x-text="item"></span>
+            </li>
+          </template>
+        </ul>
+        <p class="text-sm text-taupe/80 mt-4">Ich stimme der Durchführung der Fruchtsäurebehandlung freiwillig zu.</p>
+      </div>
+
+      <div>
+        <p class="print-section-title font-serif text-lg text-stone mb-3">Nachsorgehinweise</p>
+        <ul class="space-y-2">
+          <template x-for="n in ['Für 24 Stunden kein Make-up, Sport, Sauna oder Schwimmbad','Mindestens 14 Tage konsequenter Sonnenschutz (LSF 50)','Keine Fruchtsäuren, Retinol oder Peelings für 5–7 Tage','Haut nicht kratzen oder schälen','Sanfte, feuchtigkeitsspendende Pflege verwenden']">
+            <li class="flex items-start gap-3 text-sm text-taupe/80">
+              <span class="mt-1.5 w-1 h-1 rounded-full bg-sand flex-shrink-0"></span>
+              <span x-text="n"></span>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div class="hidden print:!block" style="width:100%; height:1px; background:#EAE1D8;"></div>
+
+      <div class="hidden print:!grid grid-cols-2 gap-8 ">
+        <div>
+          <label class="text-xs text-sand tracking-wider uppercase block mb-2">Ort, Datum</label>
+          <div class="signature-line border-b border-creme h-8" x-text="date + ', '"></div>
+        </div>
+        <div>
+          <label class="text-xs text-sand tracking-wider uppercase block mb-2">Unterschrift Kunde</label>
+          <div class="signature-line border-b border-creme h-8"></div>
+        </div>
+      </div>
+
+      <div class="modal-actions pt-2 flex gap-3 justify-end">
+        <button @click="modalOpen = false" class="btn-primary text-xs">Schließen</button>
+        <button @click="window.print()" class="btn-filled text-xs">Drucken / Speichern</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ NAVIGATION ══ -->
+<header class="fixed top-0 left-0 right-0 z-40 transition-all duration-500"
+        :class="scrolled ? 'bg-ivory/95 backdrop-blur-md shadow-sm' : 'bg-transparent'"
+        x-data>
+  <nav class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
+
+    <!-- logo text -->
+    <a href="#hero" class="flex flex-col leading-none group">
+      <span class="font-serif text-lg md:text-xl text-stone tracking-wide group-hover:text-taupe transition-colors">Nora Gerstenberg</span>
+      <span class="font-sans text-[9px] tracking-widest3 uppercase text-sand mt-0.5">Kosmetikerin</span>
+    </a>
+
+    <!-- desktop nav -->
+    <div class="hidden md:flex items-center gap-10">
+      <template x-for="link in navLinks">
+        <a :href="link.href" class="nav-link font-sans text-xs tracking-widest uppercase text-taupe hover:text-stone transition-colors" x-text="link.label"></a>
+      </template>
+      <a href="https://wa.me/4915153636898" target="_blank" rel="noopener" class="btn-primary text-xs">Termin buchen</a>
+    </div>
+
+    <!-- mobile hamburger -->
+    <button class="md:hidden p-2 text-taupe" @click="mobileOpen = !mobileOpen" aria-label="Menu">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <template x-if="!mobileOpen"><path d="M4 6h16M4 12h16M4 18h16"/></template>
+        <template x-if="mobileOpen"><path d="M6 18L18 6M6 6l12 12"/></template>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- mobile menu -->
+  <div class="md:hidden mobile-menu bg-ivory border-t border-creme"
+       x-show="mobileOpen" x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0 -translate-y-2"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 -translate-y-2">
+    <div class="px-6 py-6 flex flex-col gap-5">
+      <template x-for="link in navLinks">
+        <a :href="link.href" @click="mobileOpen = false"
+           class="font-sans text-xs tracking-widest2 uppercase text-taupe hover:text-stone transition-colors py-1" x-text="link.label"></a>
+      </template>
+      <a href="https://wa.me/4915153636898" target="_blank" rel="noopener"
+         class="btn-primary text-xs text-center mt-2">Termin buchen</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ HERO ══ -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background: #FEF9F5;">
+
+  <!-- decorative rings -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div class="ring-rotate absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full"
+         style="border: 1px solid rgba(184,170,160,0.2);"></div>
+    <div class="ring-rotate-rev absolute w-[380px] h-[380px] md:w-[550px] md:h-[550px] rounded-full"
+         style="border: 1px solid rgba(184,170,160,0.15);"></div>
+    <div class="absolute w-[260px] h-[260px] md:w-[400px] md:h-[400px] rounded-full"
+         style="border: 1px solid rgba(184,170,160,0.1);"></div>
+  </div>
+
+  <!-- subtle gradient blob -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[600px] h-[600px] rounded-full pointer-events-none"
+       style="background: radial-gradient(circle, rgba(234,225,216,0.4) 0%, transparent 70%);"></div>
+
+  <div class="relative z-10 text-center px-6 py-32 md:py-0">
+    <!-- logo mark -->
+    <div class="hero-logo flex justify-center mb-10">
+      <div class="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden"
+           style="border: 1.5px solid rgba(132,119,110,0.3); background: #F7F1EC;">
+        <img src="LOGO_PLACEHOLDER" alt="Nora Gerstenberg Logo"
+             class="w-full h-full logo-crop scale-110" id="heroLogo" />
+      </div>
+    </div>
+
+    <p class="hero-sub font-sans text-xs tracking-widest3 uppercase text-sand mb-5">Kosmetikerin · Berlin</p>
+    <h1 class="hero-title font-serif text-5xl md:text-7xl lg:text-8xl text-stone leading-none mb-6">
+      Nora<br /><em class="not-italic" style="color:#84776E;">Gerstenberg</em>
+    </h1>
+    <p class="hero-sub font-sans text-xs md:text-sm tracking-widest uppercase text-sand/80 mb-14 max-w-xs mx-auto leading-loose">
+      Sanfte Schönheit · Gepflegte Haut · Stille Eleganz
+    </p>
+
+    <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="https://wa.me/4915153636898" target="_blank" rel="noopener" class="btn-filled">
+        Termin vereinbaren
+      </a>
+      <a href="#leistungen" class="btn-primary">
+        Leistungen entdecken
+      </a>
+    </div>
+
+    <!-- scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <span class="font-sans text-[9px] tracking-widest2 uppercase text-sand">Entdecken</span>
+      <div class="w-px h-10 bg-gradient-to-b from-sand to-transparent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ INTRO ══ -->
+<section class="py-24 md:py-32 px-6" style="background: #F7F1EC;">
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="divider mb-12"></div>
+    <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-6 fade-up" x-intersect="$el.classList.add('visible')">Über Nora</p>
+    <blockquote class="font-serif text-2xl md:text-4xl text-stone leading-relaxed mb-8 fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">
+      „Schönheit, die nicht schreit, <br class="hidden md:block"/>sondern <em>berührt</em>."
+    </blockquote>
+    <p class="font-sans text-sm text-taupe/80 leading-loose max-w-xl mx-auto fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+      Als Kosmetikerin in Berlin verbinde ich professionelle Hautpflege mit echter Entspannung. Jede Behandlung ist individuell auf Ihre Haut abgestimmt – mit Ruhe, Sorgfalt und einem feinen Gespür für das, was Ihre Haut wirklich braucht.
+    </p>
+    <div class="mt-10 flex items-center justify-center gap-6 fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.3s">
+      <div class="text-center">
+        <p class="font-serif text-3xl text-stone">10+</p>
+        <p class="font-sans text-[10px] tracking-widest uppercase text-sand mt-1">Jahre Erfahrung</p>
+      </div>
+      <div style="width:1px; height:40px; background:#EAE1D8;"></div>
+      <div class="text-center">
+        <p class="font-serif text-3xl text-stone">500+</p>
+        <p class="font-sans text-[10px] tracking-widest uppercase text-sand mt-1">Zufriedene Kunden</p>
+      </div>
+      <div style="width:1px; height:40px; background:#EAE1D8;"></div>
+      <div class="text-center">
+        <p class="font-serif text-3xl text-stone">Berlin</p>
+        <p class="font-sans text-[10px] tracking-widest uppercase text-sand mt-1">Krantorweg 34b</p>
+      </div>
+    </div>
+    <div class="divider mt-12"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ ÜBER MICH ══ -->
+<section id="ueber-mich" class="py-24 md:py-36 px-6" style="background: #FEF9F5;">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-16 md:mb-20">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-4 fade-up" x-intersect="$el.classList.add('visible')">Meine Geschichte</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-stone heading-line fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">Über mich</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+
+      <!-- text column -->
+      <div class="space-y-7 fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+        <p class="font-serif text-2xl md:text-3xl text-stone leading-relaxed italic">
+          „Was mich an meiner Arbeit erfüllt, ist nicht nur das sichtbare Ergebnis.<br class="hidden md:block" />
+          Es ist das Gefühl, das bleibt."
+        </p>
+
+        <div style="width:48px; height:1px; background:#B7AAA0;"></div>
+
+        <p class="font-sans text-sm text-taupe/80 leading-loose">
+          Ich glaube daran, dass wahre Schönheit dort beginnt, wo ein Mensch sich wohl, gesehen und aufgehoben fühlt. Genau deshalb ist Kosmetik für mich so viel mehr als Pflege. Es ist eine stille Form von Zuwendung – ein bewusster Moment nur für sich selbst, in dem der Alltag leiser wird und man wieder bei sich ankommt.
+        </p>
+
+        <p class="font-sans text-sm text-taupe/80 leading-loose">
+          Schon immer hat mich berührt, wie viel ein Mensch ausstrahlt, wenn er sich in seiner eigenen Haut wohlfühlt. Wenn Anspannung weicht. Wenn Ruhe einkehrt. Wenn aus einem kurzen Termin ein Moment wird, der von innen nach außen nachwirkt. Genau diese Momente möchte ich schaffen.
+        </p>
+
+        <p class="font-sans text-sm text-taupe/80 leading-loose">
+          Mit viel Feingefühl, Zeit und echter Aufmerksamkeit möchte ich einen Ort bieten, an dem nicht nur die Haut gepflegt wird, sondern auch das eigene Wohlgefühl. Einen Ort, an dem man loslassen darf, durchatmen darf und sich selbst wieder mit mehr Sanftheit begegnet.
+        </p>
+
+        <div class="pt-2">
+          <a href="#leistungen" class="btn-primary">Leistungen entdecken</a>
+        </div>
+      </div>
+
+      <!-- portrait column -->
+      <div class="fade-up flex flex-col items-center gap-10" x-intersect="$el.classList.add('visible')" style="transition-delay:0.35s">
+
+        <!-- two-image editorial collage -->
+        <div class="grid grid-cols-2 gap-3 w-full max-w-sm mx-auto items-start">
+          <!-- image 1 – left -->
+          <div class="relative">
+            <div class="absolute -bottom-3 -right-3 w-full h-full -z-10"
+                 style="border: 1px solid #EAE1D8;"></div>
+            <div class="overflow-hidden aspect-[3/4]" style="border: 1px solid #EAE1D8;">
+              <img src="images/nora-am-behandlungsplatz.png"
+                   alt="Nora Gerstenberg am Behandlungsplatz"
+                   class="w-full h-full object-cover object-center" />
+            </div>
+          </div>
+          <!-- image 2 – offset down, right -->
+          <div class="relative mt-12">
+            <div class="absolute -bottom-3 -right-3 w-full h-full -z-10"
+                 style="border: 1px solid #EAE1D8;"></div>
+            <div class="overflow-hidden aspect-[3/4]" style="border: 1px solid #EAE1D8;">
+              <img src="images/nora-am-behandlungsplatz-1.png"
+                   alt="Nora Gerstenberg bei der Behandlung"
+                   class="w-full h-full object-cover object-center" />
+            </div>
+          </div>
+        </div>
+
+        <!-- signature quote -->
+        <div class="text-center max-w-xs">
+          <p class="font-serif text-base text-stone/70 italic leading-relaxed">
+            „Ich tue, was ich tue, weil ich daran glaube, dass wahre Ausstrahlung dort beginnt, wo man sich in der eigenen Haut geborgen fühlt."
+          </p>
+          <p class="font-sans text-xs tracking-widest uppercase text-sand mt-4">— Nora Gerstenberg</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ LEISTUNGEN ══ -->
+<section id="leistungen" class="py-24 md:py-32 px-6" style="background: #FEF9F5;">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-4 fade-up" x-intersect="$el.classList.add('visible')">Was ich anbiete</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-stone heading-line fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">Leistungen</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- card 1 -->
+      <div class="service-card fade-up p-8 rounded-none" style="background:#F7F1EC; border:1px solid #EAE1D8;" x-intersect="$el.classList.add('visible')">
+        <div class="mb-6">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B7AAA0" stroke-width="1">
+            <circle cx="18" cy="18" r="15"/>
+            <path d="M12 18c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6"/>
+            <path d="M18 8v4M18 24v4M8 18h4M24 18h4"/>
+          </svg>
+        </div>
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-2">Klassik</p>
+        <h3 class="font-serif text-2xl text-stone mb-3">Kosmetikbehandlung</h3>
+        <p class="font-sans text-xs text-taupe/70 leading-loose mb-6">
+          Professionelle Gesichtsbehandlung mit Maske und Peeling oder modernster Diamant-Mikrodermabrasion für sichtbar gepflegte, strahlende Haut.
+        </p>
+        <div class="space-y-2" style="border-top:1px solid #EAE1D8; padding-top:1.25rem;">
+          <div class="flex justify-between items-center text-xs text-taupe">
+            <span class="font-sans">Mit Maske & Peeling</span>
+            <span class="font-serif text-base text-stone">79 €</span>
+          </div>
+          <div class="flex justify-between items-center text-xs text-taupe">
+            <span class="font-sans">Diamant Microdermabrasion</span>
+            <span class="font-serif text-base text-stone">89 €</span>
+          </div>
+          <p class="font-sans text-[10px] text-sand mt-1">60 Minuten</p>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="service-card fade-up p-8 rounded-none" style="background:#F7F1EC; border:1px solid #EAE1D8;" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">
+        <div class="mb-6">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B7AAA0" stroke-width="1">
+            <path d="M18 6c0 0-8 6-8 14a8 8 0 0016 0C26 12 18 6 18 6z"/>
+            <path d="M14 20c0 0 1 4 4 4s4-4 4-4"/>
+          </svg>
+        </div>
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-2">Anti-Aging</p>
+        <h3 class="font-serif text-2xl text-stone mb-3">Microneedling</h3>
+        <p class="font-sans text-xs text-taupe/70 leading-loose mb-6">
+          Innovative Behandlung zur Hautverjüngung. Feine Micro-Kanäle regen die Kollagenproduktion an und verbessern Hautstruktur, Elastizität und Erscheinungsbild.
+        </p>
+        <div class="space-y-2" style="border-top:1px solid #EAE1D8; padding-top:1.25rem;">
+          <div class="flex justify-between items-center text-xs text-taupe">
+            <span class="font-sans">Gesicht</span>
+            <span class="font-serif text-base text-stone">99 €</span>
+          </div>
+          <div class="flex justify-between items-center text-xs text-taupe">
+            <span class="font-sans">Mit Dekolleté</span>
+            <span class="font-serif text-base text-stone">130 €</span>
+          </div>
+          <p class="font-sans text-[10px] text-sand mt-1">60 Minuten</p>
+        </div>
+      </div>
+
+      <!-- card 3 – highlight -->
+      <div class="service-card fade-up p-8 rounded-none relative overflow-hidden" style="background:#84776E; border:1px solid #84776E;" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+        <div class="absolute top-4 right-4">
+          <span class="font-sans text-[9px] tracking-widest uppercase text-ivory/60 bg-ivory/10 px-3 py-1">Kennlernangebot</span>
+        </div>
+        <div class="mb-6">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="rgba(254,249,245,0.6)" stroke-width="1">
+            <path d="M6 18c0 0 4-10 12-10s12 10 12 10-4 10-12 10S6 18 6 18z"/>
+            <circle cx="18" cy="18" r="4"/>
+          </svg>
+        </div>
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-ivory/50 mb-2">Peeling</p>
+        <h3 class="font-serif text-2xl text-ivory mb-3">Fruchtsäure&shy;behandlung</h3>
+        <p class="font-sans text-xs text-ivory/70 leading-loose mb-6">
+          Sanftes chemisches Peeling für ein gleichmäßigeres Hautbild. Ideal bei Unreinheiten, Pigmentstörungen, Akne oder feinen Linien. Inklusive ausführlicher Beratung.
+        </p>
+        <div class="space-y-2" style="border-top:1px solid rgba(254,249,245,0.2); padding-top:1.25rem;">
+          <div class="flex justify-between items-center text-xs text-ivory/80">
+            <span class="font-sans">Gesicht</span>
+            <span class="font-serif text-base text-ivory">99 €</span>
+          </div>
+          <div class="flex justify-between items-center text-xs text-ivory/80">
+            <span class="font-sans">Mit Dekolleté</span>
+            <span class="font-serif text-base text-ivory">130 €</span>
+          </div>
+          <p class="font-sans text-[10px] text-ivory/50 mt-1">50–60 Minuten</p>
+        </div>
+        <button @click="modalOpen = true"
+          class="mt-6 w-full text-center py-3 font-sans text-[10px] tracking-widest uppercase text-ivory/80 hover:text-ivory transition-colors"
+          style="border-top:1px solid rgba(254,249,245,0.2);">
+          Behandlungsvereinbarung →
+        </button>
+      </div>
+
+      <!-- card 4 – NEU -->
+      <div class="service-card fade-up p-8 rounded-none md:col-span-2 lg:col-span-1" style="background:#F7F1EC; border:1px solid #EAE1D8; border-top: 2px solid #B7AAA0;" x-intersect="$el.classList.add('visible')" style="transition-delay:0.3s">
+        <div class="flex items-center gap-3 mb-6">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B7AAA0" stroke-width="1">
+            <path d="M18 8c-4 0-8 4-8 10s4 10 8 10 8-4 8-10-4-10-8-10z"/>
+            <path d="M14 17s1 3 4 3 4-3 4-3"/>
+            <circle cx="14.5" cy="14.5" r="1" fill="#B7AAA0"/>
+            <circle cx="21.5" cy="14.5" r="1" fill="#B7AAA0"/>
+          </svg>
+          <span class="font-sans text-[9px] tracking-widest uppercase text-ivory bg-sand px-3 py-1">Neu</span>
+        </div>
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand mb-2">Jugendpflege</p>
+        <h3 class="font-serif text-2xl text-stone mb-3">Teenager Reinigung</h3>
+        <p class="font-sans text-xs text-taupe/70 leading-loose mb-6">
+          Professionelle Reinigungsbehandlung inklusive persönlicher Hautberatung – speziell für junge Haut in der Pubertät. Sanft, effektiv und nachhaltig.
+        </p>
+        <div class="space-y-2" style="border-top:1px solid #EAE1D8; padding-top:1.25rem;">
+          <div class="flex justify-between items-center text-xs text-taupe">
+            <span class="font-sans">Inkl. Beratung</span>
+            <span class="font-serif text-base text-stone">49 €</span>
+          </div>
+          <p class="font-sans text-[10px] text-sand mt-1">30–45 Minuten</p>
+        </div>
+      </div>
+
+      <!-- card 5 – Zusatz -->
+      <div class="service-card fade-up p-8 rounded-none md:col-span-2 lg:col-span-2" style="background:#EAE1D8; border:1px solid #B7AAA0;" x-intersect="$el.classList.add('visible')" style="transition-delay:0.4s">
+        <div class="mb-6">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#84776E" stroke-width="1">
+            <circle cx="18" cy="18" r="12"/>
+            <path d="M18 12v12M12 18h12" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-taupe/60 mb-2">Add-On</p>
+        <h3 class="font-serif text-2xl text-stone mb-3">Zusatzleistungen</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <p class="font-sans text-xs text-taupe/70 leading-loose">
+              Ergänzen Sie Ihre Behandlung mit unserer <strong class="font-medium text-taupe">Skin Light Lichttherapie</strong> – die Farbwahl der Lichtfrequenz wird individuell nach Ihrem aktuellen Hautzustand ausgewählt.
+            </p>
+          </div>
+          <div style="border-left:1px solid #B7AAA0;" class="pl-6">
+            <div class="flex justify-between items-center text-xs text-taupe mb-2">
+              <span class="font-sans">Skin Light (Lichttherapie)</span>
+              <span class="font-serif text-2xl text-stone">+10 €</span>
+            </div>
+            <p class="font-sans text-[10px] text-taupe/60">Als Ergänzung zu jeder Behandlung buchbar</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ PREISLISTE ══ -->
+<section id="preise" class="py-24 md:py-32 px-6" style="background: #F7F1EC;">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-4 fade-up" x-intersect="$el.classList.add('visible')">Transparenz</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-stone heading-line fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">Preisliste 2026</h2>
+    </div>
+
+    <div class="fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+
+      <!-- group 1 -->
+      <div class="mb-2">
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand px-6 py-3"
+           style="background:#EAE1D8; letter-spacing:0.2em;">Kosmetikbehandlung</p>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Mit Maske und Peeling</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">60 Min.</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">79 <span class="text-base">€</span></p>
+        </div>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Mit Diamant Microdermabrasion</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">60 Min.</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">89 <span class="text-base">€</span></p>
+        </div>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Microneedling</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">60 Min.</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">99 <span class="text-base">€</span></p>
+        </div>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Microneedling mit Dekolleté</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">130 <span class="text-base">€</span></p>
+        </div>
+      </div>
+
+      <!-- group 2 -->
+      <div class="mb-2 mt-6">
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand px-6 py-3"
+           style="background:#EAE1D8; letter-spacing:0.2em;">Kennlernangebot</p>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Fruchtsäurebehandlung</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">50–60 Min.</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">99 <span class="text-base">€</span></p>
+        </div>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Fruchtsäurebehandlung mit Dekolleté</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">130 <span class="text-base">€</span></p>
+        </div>
+      </div>
+
+      <!-- group 3 -->
+      <div class="mb-2 mt-6">
+        <div class="flex items-center gap-3 px-6 py-3" style="background:#EAE1D8;">
+          <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand" style="letter-spacing:0.2em;">Neu</p>
+          <span class="font-sans text-[9px] uppercase text-ivory bg-sand px-2 py-0.5">Neu</span>
+        </div>
+        <div class="price-row flex justify-between items-center px-6 py-4" style="border-bottom:1px solid #EAE1D8;">
+          <div>
+            <p class="font-sans text-sm text-stone">Teenager Reinigungsbehandlung inkl. Beratung</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">30–45 Min.</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">49 <span class="text-base">€</span></p>
+        </div>
+      </div>
+
+      <!-- group 4 -->
+      <div class="mb-2 mt-6">
+        <p class="font-sans text-[10px] tracking-widest2 uppercase text-sand px-6 py-3"
+           style="background:#EAE1D8; letter-spacing:0.2em;">Zusatzleistung</p>
+        <div class="price-row flex justify-between items-center px-6 py-4">
+          <div>
+            <p class="font-sans text-sm text-stone">Skin Light</p>
+            <p class="font-sans text-[10px] text-sand mt-0.5">Lichttherapie · Farbwahl je nach Hautzustand</p>
+          </div>
+          <p class="font-serif text-2xl text-stone">+10 <span class="text-base">€</span></p>
+        </div>
+      </div>
+
+      <p class="font-sans text-xs text-sand text-center mt-8 italic">Alle Preise inkl. MwSt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FAQ ══ -->
+<section id="faq" class="py-24 md:py-32 px-6" style="background:#FEF9F5;">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-4 fade-up" x-intersect="$el.classList.add('visible')">Häufige Fragen</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-stone heading-line fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">FAQ</h2>
+    </div>
+
+    <div class="space-y-0 fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+      <template x-for="(item, i) in faqs" :key="i">
+        <div style="border-bottom:1px solid #EAE1D8;">
+          <button class="w-full flex items-center justify-between py-5 text-left group"
+                  @click="activeTab === i ? activeTab = null : activeTab = i">
+            <span class="font-sans text-sm text-stone group-hover:text-taupe transition-colors pr-4" x-text="item.q"></span>
+            <span class="flex-shrink-0 text-sand transition-transform duration-300"
+                  :class="activeTab === i ? 'rotate-45' : ''">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </span>
+          </button>
+          <div class="accordion-body" :class="activeTab === i ? 'open' : ''">
+            <p class="font-sans text-xs text-taupe/80 leading-loose pb-5 pr-8" x-text="item.a"></p>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ KONTAKT ══ -->
+<section id="kontakt" class="py-24 md:py-32 px-6 relative overflow-hidden" style="background: #EAE1D8;">
+
+  <div class="absolute inset-0 pointer-events-none opacity-20"
+       style="background: radial-gradient(ellipse at top right, #B7AAA0 0%, transparent 60%);"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-sand mb-4 fade-up" x-intersect="$el.classList.add('visible')">Termin vereinbaren</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-stone heading-line fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.1s">Kontakt</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.2s">
+
+      <div class="text-center group">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 transition-colors"
+             style="background:#F7F1EC; border:1px solid #B7AAA0;">
+          <svg width="22" height="22" fill="none" stroke="#84776E" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+        </div>
+        <p class="font-sans text-xs tracking-widest uppercase text-sand mb-2">Telefon</p>
+        <a href="tel:+4915153636898" class="font-serif text-xl text-stone hover:text-taupe transition-colors">01515 3636 898</a>
+      </div>
+
+      <div class="text-center group">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+             style="background:#F7F1EC; border:1px solid #B7AAA0;">
+          <svg width="22" height="22" fill="none" stroke="#84776E" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <p class="font-sans text-xs tracking-widest uppercase text-sand mb-2">E-Mail</p>
+        <a href="mailto:gerstenberg.nora@gmx.de" class="font-serif text-xl text-stone hover:text-taupe transition-colors break-all">gerstenberg.nora@gmx.de</a>
+      </div>
+
+      <div class="text-center group">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+             style="background:#F7F1EC; border:1px solid #B7AAA0;">
+          <svg width="22" height="22" fill="none" stroke="#84776E" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <p class="font-sans text-xs tracking-widest uppercase text-sand mb-2">Adresse</p>
+        <p class="font-serif text-xl text-stone">Krantorweg 34b<br />13503 Berlin</p>
+      </div>
+    </div>
+
+    <!-- CTA block -->
+    <div class="mt-16 text-center fade-up" x-intersect="$el.classList.add('visible')" style="transition-delay:0.3s">
+      <p class="font-sans text-xs text-taupe/70 mb-8 tracking-wide">Termine bitte per WhatsApp oder Mail anfragen</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://wa.me/4915153636898" target="_blank" rel="noopener" class="btn-filled flex items-center gap-3">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp schreiben
+        </a>
+        <a href="mailto:gerstenberg.nora@gmx.de" class="btn-primary flex items-center gap-3">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          E-Mail senden
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer style="background:#6F645D;" class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
+      <div class="text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start mb-4">
+          <div class="rounded-full overflow-hidden flex-shrink-0" style="width:50px; height:50px; border:1px solid rgba(254,249,245,0.2);">
+            <img id="footerLogo" src="LOGO_PLACEHOLDER" alt="Logo" class="w-full h-full logo-crop scale-110" style="background: #EAE1D8;" />
+          </div>
+          <div>
+            <p class="font-serif text-2xl text-ivory mb-1">Nora Gerstenberg</p>
+            <p class="font-sans text-[10px] tracking-widest3 uppercase text-ivory/50">Kosmetikerin</p>
+          </div>
+        </div>
+        <p class="font-sans text-xs text-ivory/60 leading-loose">
+          Krantorweg 34b · 13503 Berlin<br />
+          01515 3636 898 · gerstenberg.nora@gmx.de
+        </p>
+      </div>
+
+      <div class="text-center md:text-right">
+        <p class="font-sans text-xs tracking-widest uppercase text-ivory/40 mb-4">Navigation</p>
+        <div class="flex flex-col gap-3">
+          <template x-for="link in navLinks">
+            <a :href="link.href" class="font-sans text-xs text-ivory/60 hover:text-ivory/90 transition-colors tracking-wide" x-text="link.label"></a>
+          </template>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(254,249,245,0.1);" class="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-sans text-[10px] text-ivory/30">© 2026 Nora Gerstenberg · Kosmetikerin Berlin</p>
+      <button @click="modalOpen = true" class="font-sans text-[10px] text-ivory/40 hover:text-ivory/70 transition-colors tracking-wider uppercase">
+        Behandlungsvereinbarung Fruchtsäure
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function site() {
+    return {
+      scrolled: false,
+      mobileOpen: false,
+      modalOpen: false,
+      activeTab: null,
+      date: null,
+      navLinks: [
+        { label: 'Über mich',  href: '#ueber-mich' },
+        { label: 'Leistungen', href: '#leistungen' },
+        { label: 'Preise',     href: '#preise' },
+        { label: 'FAQ',        href: '#faq' },
+        { label: 'Kontakt',    href: '#kontakt' },
+      ],
+      faqs: [
+        {
+          q: 'Wie bereite ich mich auf die Fruchtsäurebehandlung vor?',
+          a: 'Bitte verwenden Sie 5–7 Tage vor der Behandlung keine Fruchtsäuren, Retinol oder Peelings. Kommen Sie mit gereinigter, ungeschminkter Haut. Informieren Sie mich bitte über aktuelle Medikamente, insbesondere Isotretinoin.'
+        },
+        {
+          q: 'Wie läuft ein Termin bei mir ab?',
+          a: 'Jede Behandlung beginnt mit einem kurzen Hautgespräch, in dem wir Ihren aktuellen Hautzustand und Ihre Ziele besprechen. Danach folgt die individuelle Behandlung in ruhiger Atmosphäre. Am Ende erhalten Sie eine Pflege- und Nachsorgeempfehlung.'
+        },
+        {
+          q: 'Wie lange halten die Ergebnisse?',
+          a: 'Das hängt von der Behandlung und Ihrem Hauttyp ab. Für langfristige Ergebnisse empfehle ich regelmäßige Behandlungsintervalle. Microneedling zeigt oft nach 2–4 Wochen optimale Ergebnisse. Fruchtsäurepeelings wirken am besten in einer Kursbehandlung.'
+        },
+        {
+          q: 'Kann ich direkt nach der Behandlung arbeiten oder ausgehen?',
+          a: 'Nach einer klassischen Kosmetikbehandlung ja. Nach Fruchtsäurepeeling oder Microneedling können leichte Rötungen auftreten, die meistens nach einigen Stunden abklingen. Für 24 Stunden sollte kein Make-up aufgetragen werden.'
+        },
+        {
+          q: 'Wie buche ich einen Termin?',
+          a: 'Am einfachsten per WhatsApp an 01515 3636 898 oder per E-Mail an gerstenberg.nora@gmx.de. Ich antworte schnellstmöglich und finde gemeinsam mit Ihnen den passenden Termin.'
+        },
+        {
+          q: 'Ist Microneedling für jeden geeignet?',
+          a: 'Microneedling ist für die meisten Hauttypen geeignet, jedoch nicht bei aktiven Entzündungen, bestimmten Hauterkrankungen oder während der Schwangerschaft. Im Beratungsgespräch klären wir, welche Behandlung für Sie am besten geeignet ist.'
+        },
+      ],
+      init() {
+        this.setDate();
+        window.addEventListener('scroll', () => {
+          this.scrolled = window.scrollY > 50;
+        });
+        // Inject base64 logo
+        const logo = "/logo.svg";
+        document.getElementById('heroLogo').src = logo;
+        document.getElementById('footerLogo').src = logo;
+      },
+      setDate() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        this.date = [dd,mm,yyyy].join('.');
+      }
+    }
+  }
+</script>
+</body>
+</html>
