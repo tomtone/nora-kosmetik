@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "mkdir -p js && cp node_modules/alpinejs/dist/cdn.min.js js/alpine.min.js && cp node_modules/@alpinejs/intersect/dist/cdn.min.js js/alpine-intersect.min.js",
     "build": "tailwindcss -i tailwind.input.css -o styles.css --minify && postcss styles.css -o styles.css && node -e \"const{gzipSync,brotliCompressSync}=require('zlib'),fs=require('fs'),css=fs.readFileSync('styles.css');fs.writeFileSync('styles.css.gz',gzipSync(css,{level:9}));fs.writeFileSync('styles.css.br',brotliCompressSync(css));\"",
     "watch": "tailwindcss -i tailwind.input.css -o styles.css --watch"
   },
@@ -13,5 +14,9 @@
     "postcss": "^8.5.8",
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "@alpinejs/intersect": "^3.15.8",
+    "alpinejs": "^3.15.8"
   }
 }
