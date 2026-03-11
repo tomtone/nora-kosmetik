@@ -1,7 +1,7 @@
 # Inhalte & Zahlen, Daten, Fakten
 
 ## Kontaktdaten
-- **Telefon:** 01515 3636 898
+- **Telefon:** +491515 3636 898
 - **WhatsApp:** https://wa.me/4915153636898
 - **E-Mail:** gerstenberg.nora@gmx.de
 - **Adresse:** Krantorweg 34b, 13503 Berlin
